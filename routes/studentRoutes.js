@@ -10,18 +10,7 @@ router.post("/add", async (req, res) => {
   res.json(student);
 });
 
-// Get All Students
-router.get("/", async (req, res) => {
-  const students = await Student.find();
-  res.json(students);
-});
-
-// Delete Student
-router.delete("/:id", async (req, res) => {
-  await Student.findByIdAndDelete(req.params.id);
-  res.json({ msg: "Deleted" });
-});
-
+// Get Result by Hallticket (MOVE THIS UP)
 router.get("/result/:hallticket", async (req, res) => {
   try {
     const student = await Student.findOne({
@@ -36,6 +25,18 @@ router.get("/result/:hallticket", async (req, res) => {
   } catch (err) {
     res.status(500).json({ msg: "Server error" });
   }
+});
+
+// Get All Students
+router.get("/", async (req, res) => {
+  const students = await Student.find();
+  res.json(students);
+});
+
+// Delete Student (KEEP THIS LAST)
+router.delete("/:id", async (req, res) => {
+  await Student.findByIdAndDelete(req.params.id);
+  res.json({ msg: "Deleted" });
 });
 
 module.exports = router;
